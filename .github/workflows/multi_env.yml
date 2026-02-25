@@ -32,15 +32,12 @@ jobs:
           with:
               SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
               SOURCE: "./main_STG.py"
-              REMOTE_HOST: ${{ secrets.IP_ADDRESS }}
+              REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
               REMOTE_USER: root
               TARGET: /www/wwwroot/test/main_STG.py
               SCRIPT_AFTER: |
                 pkill -f 'python /www/wwwroot/test/main_STG.py'
                 nohup python /www/wwwroot/test/main_STG.py &
-
-
-
 
     deploy_PROD:
         runs-on: ubuntu-latest
@@ -53,7 +50,7 @@ jobs:
           with:
               SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
               SOURCE: "./main_PROD.py"
-              REMOTE_HOST: ${{ env.IP_ADDRESS }}
+              REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
               REMOTE_USER: root
               TARGET: /www/wwwroot/test/main_PROD.py
               SCRIPT_AFTER: |

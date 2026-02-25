@@ -8,7 +8,7 @@ jobs:
         environment: QA
         steps:
         - uses: actions/checkout@v4
-    deploy.STG:
+    deploy_STG:
         runs-on: ubuntu-latest
         environment: STG
         steps:

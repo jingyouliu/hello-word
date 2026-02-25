@@ -8,13 +8,54 @@ jobs:
         environment: QA
         steps:
         - uses: actions/checkout@v4
+
+        - name: Deploy to server
+          uses: easingthemes/ssh-deploy@main
+          with:
+              SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+              SOURCE: "./main_QA.py"
+              REMOTE_HOST: ${{ env.IP_ADDRESS }}
+              REMOTE_USER: root
+              TARGET: /www/wwwroot/test/main_QA.py
+              SCRIPT_AFTER: |
+                pkill -f 'python /www/wwwroot/test/main_QA.py'
+                nohup python /www/wwwroot/test/main_QA.py &
+
     deploy_STG:
         runs-on: ubuntu-latest
         environment: STG
         steps:
         - uses: actions/checkout@v4
+
+        - name: Deploy to server
+          uses: easingthemes/ssh-deploy@main
+          with:
+              SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+              SOURCE: "./main_STG.py"
+              REMOTE_HOST: ${{ env.IP_ADDRESS }}
+              REMOTE_USER: root
+              TARGET: /www/wwwroot/test/main_STG.py
+              SCRIPT_AFTER: |
+                pkill -f 'python /www/wwwroot/test/main_STG.py'
+                nohup python /www/wwwroot/test/main_STG.py &
+
+
+
+
     deploy_PROD:
         runs-on: ubuntu-latest
         environment: PROD
         steps:
         - uses: actions/checkout@v4
+
+        - name: Deploy to server
+          uses: easingthemes/ssh-deploy@main
+          with:
+              SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+              SOURCE: "./main_PROD.py"
+              REMOTE_HOST: ${{ env.IP_ADDRESS }}
+              REMOTE_USER: root
+              TARGET: /www/wwwroot/test/main_PROD.py
+              SCRIPT_AFTER: |
+                pkill -f 'python /www/wwwroot/test/main_PROD.py'
+                nohup python /www/wwwroot/test/main_PROD.py &

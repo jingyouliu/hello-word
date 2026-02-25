@@ -32,7 +32,7 @@ jobs:
           with:
               SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
               SOURCE: "./main_STG.py"
-              REMOTE_HOST: ${{ env.IP_ADDRESS }}
+              REMOTE_HOST: ${{ secrets.IP_ADDRESS }}
               REMOTE_USER: root
               TARGET: /www/wwwroot/test/main_STG.py
               SCRIPT_AFTER: |
